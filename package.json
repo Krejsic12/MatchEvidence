@@ -1,0 +1,24 @@
+{
+  "name": "matchevidence",
+  "version": "1.0.0",
+  "description": "Livesport Intership task",
+  "main": "match_simulator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Krejsic12/MatchEvidence.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Krejsic12/MatchEvidence/issues"
+  },
+  "homepage": "https://github.com/Krejsic12/MatchEvidence#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1"
+  }
+}
