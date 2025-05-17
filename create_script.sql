@@ -20,13 +20,14 @@ CREATE TABLE events (
 
 CREATE TABLE card (
     id_event INTEGER PRIMARY KEY,
-    colour VARCHAR(256) NOT NULL
+    colour VARCHAR(16) NOT NULL,
+    foul VARCHAR(256)
 );
 
 CREATE TABLE goal (
     id_event INTEGER PRIMARY KEY,
     type VARCHAR(32) NOT NULL,
-    assisted_by VARCHAR(256) NOT NULL
+    assisted_by VARCHAR(256)
 );
 
 CREATE TABLE matches (
