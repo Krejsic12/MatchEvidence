@@ -1,0 +1,7 @@
+penalty
+free kick
+corner
+own goal
+defflection
+breakaway
+combination
