@@ -15,7 +15,7 @@ function loadDataByLines(path) {
     }
 }
 
-function chooseOne(list) {
+function randomOne(list) {
     i = randomNumber(0, list.length);
     return list[i];
 }
@@ -23,5 +23,5 @@ function chooseOne(list) {
 module.exports = {
     randomNumber,
     loadDataByLines,
-    chooseOne
+    randomOne
 };
