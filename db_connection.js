@@ -21,7 +21,7 @@ function connect() {
 
 function disconnect(connection) {
     connection.end((err) => {
-        if (err) console.log("Disconnecting failed: ", err);
+        if (err) console.error("Disconnecting failed: ", err);
         else console.log("Disconnected");
     });
 }
