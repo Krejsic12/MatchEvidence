@@ -20,8 +20,15 @@ function randomOne(list) {
     return list[i];
 }
 
+function randomFormatedDate(start = new Date(2000, 0, 1), end = new Date()) {
+    time = start.getTime() + Math.random() * (end.getTime() - start.getTime());
+    formatedDate = new Date(time).toISOString().slice(0, 10);
+    return formatedDate;
+}
+
 module.exports = {
     randomNumber,
     loadDataByLines,
-    randomOne
+    randomOne,
+    randomFormatedDate
 };

@@ -25,9 +25,18 @@ async function main() {
         }
     }
 
-    // todo - Insert new match
-    // random teams and league
+    // Insert new match
     matchID = 0;
+    date = af.randomFormatedDate();
+    league = af.randomOne(leagues);
+    homeTeam = awayTeam = af.randomNumber(1, teamsCount);
+    while (homeTeam == awayTeam)
+        awayTeam = af.randomNumber(1, teamsCount);
+    [result] = await db.query(
+        'INSERT INTO matches (id_home_team, id_away_team, date, league) VALUES (?, ?, ?, ?)', 
+        [homeTeam, awayTeam, date, league]
+    );
+    matchID = result.insertId;
 
     // todo - Randomised match
     goals = 0;
@@ -46,12 +55,7 @@ async function main() {
 
     // examples
 
-    console.log(af.randomOne(players));
-
-    for (i = 0; i < 10; i++)
-        console.log(af.randomNumber(0, 1));
-
-    [results] = await db.query('SELECT * FROM teams');
+    [results] = await db.query('SELECT * FROM matches');
     console.log(results);
 
     // Diconnect DB
