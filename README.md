@@ -11,12 +11,12 @@ Livesport Intership task
 ```sudo apt install mysql-server```
 
 - (if you don't know *password* for root, go to FAQ)
-- run DB create script, fill in your *password*
+- run DB create script, fill in your root *password*
 
 ```mysql -u root -p < create_script.sql```
 
 - fill in your *password* in DB configuration file ```./db_connection.js``` on the line 6
-- install JavaScript mysql library
+- install mysql library for JavaScript
 
 ```
 sudo apt install npm
