@@ -57,7 +57,7 @@ async function printMatch(db, matchID) {
     }
 
     console.log(
-        "id: ", matchID, ", date: ", date, ", league:", league, 
+        "id: ", matchID, ", date: ", date, ", league:", match.league, 
         ", teams: ", homeTeam, " vs ", awayTeam, ", score:", homeGoals, ":", awayGoals
     );
 
@@ -97,5 +97,6 @@ module.exports = {
     loadDataByLines,
     randomOne,
     randomFormatedDate,
+    printMatch,
     summarizeMatch
 };
