@@ -45,7 +45,6 @@ async function main() {
 
     while (goals < 3 || yellowCards < 1 || redCards < 1 || time < 75) {
         time = af.randomMinOf3(time, 90);
-        console.log(time);
 
         // Insert new event
         side = af.randomOne(sides);
@@ -56,8 +55,8 @@ async function main() {
         );
         eventID = result.insertId;
 
-        // 70% probability for a goal, 30% for a card
-        if (Math.random() < 0.7) {
+        // 60% probability for a goal, 40% for a card
+        if (Math.random() < 0.6) {
             // Goal
             type = af.randomOne(goalTypes);
 
@@ -94,6 +93,8 @@ async function main() {
                 redCards++;
         }
     }
+
+    await af.summarizeMatch(db, matchID);
 
     // Diconnect DB
     db.end();
