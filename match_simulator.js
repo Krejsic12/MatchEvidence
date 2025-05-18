@@ -19,6 +19,7 @@ async function main() {
 
     if (teamsCount == 0) {
         teams = af.loadDataByLines("./assets/premier_league_teams.txt");
+        teamsCount = teams.length;
 
         for (team of teams) {
             await db.query('INSERT INTO teams (name) VALUES (?)', [team]);
