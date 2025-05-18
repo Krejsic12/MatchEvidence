@@ -4,6 +4,13 @@ function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function randomMinOf3(min, max) {
+    numbers = [];
+    for (i = 0; i < 3; i++)
+        numbers.push(randomNumber(min, max));
+    return Math.min(...numbers);
+}
+
 function loadDataByLines(path) {
     try {
         const data = fs.readFileSync(path, 'utf8');
@@ -16,7 +23,7 @@ function loadDataByLines(path) {
 }
 
 function randomOne(list) {
-    i = randomNumber(0, list.length);
+    i = randomNumber(0, list.length - 1);
     return list[i];
 }
 
@@ -28,6 +35,7 @@ function randomFormatedDate(start = new Date(2000, 0, 1), end = new Date()) {
 
 module.exports = {
     randomNumber,
+    randomMinOf3,
     loadDataByLines,
     randomOne,
     randomFormatedDate

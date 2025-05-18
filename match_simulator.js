@@ -10,8 +10,8 @@ async function main() {
     leagues = af.loadDataByLines("./assets/leagues.txt");
     goalTypes = af.loadDataByLines("./assets/goal_types.txt");
     fouls = af.loadDataByLines("./assets/fouls.txt");
-    sides = ["home", "away"];
-    cardColours = ["yellow", "red"];
+    sides = ["Home", "Away"];
+    cardColours = ["Yellow", "Red"];
 
     // Insert teams if no inserted yet
     [result] = await db.query('SELECT COUNT(*) FROM teams');
@@ -26,7 +26,6 @@ async function main() {
     }
 
     // Insert new match
-    matchID = 0;
     date = af.randomFormatedDate();
     league = af.randomOne(leagues);
     homeTeam = awayTeam = af.randomNumber(1, teamsCount);
@@ -38,25 +37,63 @@ async function main() {
     );
     matchID = result.insertId;
 
-    // todo - Randomised match
+    // Randomised match - generating of random events until all conditions are met
     goals = 0;
     yellowCards = 0;
     redCards = 0;
     time = 1;
 
     while (goals < 3 || yellowCards < 1 || redCards < 1 || time < 75) {
-        time = af.randomNumber(time, 90);
+        time = af.randomMinOf3(time, 90);
+        console.log(time);
 
-        //debug
-        break;
+        // Insert new event
+        side = af.randomOne(sides);
+        player = af.randomOne(players);
+        [result] = await db.query(
+            'INSERT INTO events (id_match, time, side, player_name) VALUES (?, ?, ?, ?)', 
+            [matchID, time, side, player]
+        );
+        eventID = result.insertId;
 
-        // todo - goal or foul
+        // 70% probability for a goal, 30% for a card
+        if (Math.random() < 0.7) {
+            // Goal
+            type = af.randomOne(goalTypes);
+
+            if (type === "Penalty kick" || Math.random() < 0.2) {
+                // Without assistence
+                await db.query(
+                    'INSERT INTO goal (id_event, type) VALUES (?, ?)', 
+                    [eventID, type]
+                );
+            }
+            else {
+                // With
+                assistence = af.randomOne(players);
+                await db.query(
+                    'INSERT INTO goal (id_event, type, assisted_by) VALUES (?, ?, ?)', 
+                    [eventID, type, assistence]
+                );
+            }
+
+            goals++;
+        }
+        else {
+            // Card
+            colour = af.randomOne(cardColours);
+            foul = af.randomOne(fouls);
+            await db.query(
+                'INSERT INTO card (id_event, colour, foul) VALUES (?, ?, ?)', 
+                [eventID, colour, foul]
+            );
+
+            if (colour === "Yellow")
+                yellowCards++;
+            else
+                redCards++;
+        }
     }
-
-    // examples
-
-    [results] = await db.query('SELECT * FROM matches');
-    console.log(results);
 
     // Diconnect DB
     db.end();
